@@ -1,42 +1,31 @@
 # Pokédex
 
-A polished, single-page Pokédex powered by the [PokéAPI](https://pokeapi.co). Search any Pokémon by name or National Dex number and explore artwork, stats, abilities, evolutions, and cries.
+> Gotta fetch 'em all. A snappy, type-themed Pokédex in three files — no build, no deps.
 
-## Features
+Powered by the [PokéAPI](https://pokeapi.co).
 
-- Modern, type-themed card UI with gradient backgrounds and smooth animations
-- Search by name **or** ID, with autocomplete from the full National Dex
-- Animated base-stat bars and total
-- Official artwork with **shiny toggle**
-- Pokémon **cry playback**
-- **Evolution chain** preview (click any node to jump to it)
-- **Prev / Next** navigation through the Pokédex
-- **Random** Pokémon button
-- Deep links via URL hash (e.g. `pokemon.html#charizard`)
-- Keyboard shortcuts: `/` to focus search, `Alt + ←/→` to navigate
-- In-memory request caching for snappy back-and-forth
-- Skeleton loading state and friendly error messages
-- Fully responsive; respects `prefers-reduced-motion`
+## What's inside
+
+- Search by **name or #ID**, with autocomplete for all 1025 Pokémon
+- Type-colored cards, animated stat bars, official artwork
+- **Shiny toggle**, **cry playback**, full **evolution chain**
+- Prev / Next nav, **Random** button, deep links (`#pikachu`)
+- Shortcuts: `/` to search, `Alt + ←/→` to walk the dex
+- Fast: request cache, skeleton loading, in-flight cancellation
 
 ## Run it
 
-It's a static site — no build step, no dependencies.
-
 ```bash
-# any static server works, e.g.
 python3 -m http.server 8000
-# then open http://localhost:8000/pokemon.html
+# → http://localhost:8000/pokemon.html
 ```
 
-Or just open `pokemon.html` directly in your browser.
+Or just open `pokemon.html` in your browser.
 
 ## Files
 
-- `pokemon.html` — markup and a `<template>` for the result card
-- `styles.css` — design system, type colors, animations, responsive rules
-- `pokemon.js` — data fetching, rendering, caching, keyboard & hash routing
+`pokemon.html` · `styles.css` · `pokemon.js`
 
-## Credits
+---
 
-- Data and sprites: [PokéAPI](https://pokeapi.co)
-- Pokémon and all respective names are trademarks of Nintendo / Game Freak
+Pokémon © Nintendo / Game Freak. Data & sprites via [PokéAPI](https://pokeapi.co).
