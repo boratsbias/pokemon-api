@@ -1,17 +1,112 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <meta name="description" content="A description of the page for search engines and social media.">
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex — Find Any Pokémon</title>
+    <meta name="description" content="A modern Pokédex powered by PokéAPI. Search any Pokémon and explore stats, types, abilities, evolutions, and more.">
+    <meta name="theme-color" content="#ef4444">
+    <link rel="icon" href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png">
+    <link rel="preconnect" href="https://pokeapi.co">
+    <link rel="preconnect" href="https://raw.githubusercontent.com">
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-    <input type="text" id="pokemonName" placeholder="Enter Pokémon name">
-    <button onclick="fetchData()">Fetch Pokémon</button> <br>
+    <div class="app">
+        <header class="header">
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokéball" class="logo-ball">
+                <h1>Pokédex</h1>
+            </div>
+            <p class="tagline">Search any Pokémon by name or number</p>
+        </header>
 
-    <div id="image"></div>
-    
+        <section class="search-bar" role="search">
+            <div class="search-input-wrap">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input
+                    type="text"
+                    id="pokemonName"
+                    placeholder="e.g. pikachu, 25, charizard…"
+                    autocomplete="off"
+                    spellcheck="false"
+                    aria-label="Pokémon name or ID"
+                    list="pokemon-suggestions"
+                />
+                <datalist id="pokemon-suggestions"></datalist>
+                <button class="clear-btn" id="clearBtn" aria-label="Clear search" hidden>&times;</button>
+            </div>
+            <button class="btn btn-primary" id="searchBtn">Search</button>
+            <button class="btn btn-secondary" id="randomBtn" title="Surprise me!">
+                <span aria-hidden="true">🎲</span> Random
+            </button>
+        </section>
+
+        <main id="result" class="result" aria-live="polite">
+            <div class="welcome">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="Pikachu" class="welcome-img">
+                <h2>Who's that Pokémon?</h2>
+                <p>Type a name or number above to begin exploring the Pokédex.</p>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Data from <a href="https://pokeapi.co" target="_blank" rel="noopener">PokéAPI</a> · Pokémon and All Respective Names are Trademark &amp; © of Nintendo</p>
+        </footer>
+    </div>
+
+    <template id="card-template">
+        <article class="card">
+            <div class="card-bg"></div>
+            <div class="card-header">
+                <span class="card-id"></span>
+                <span class="card-genus"></span>
+            </div>
+            <h2 class="card-name"></h2>
+            <div class="card-types"></div>
+
+            <div class="card-media">
+                <button class="sprite-toggle" data-shiny="false" title="Toggle shiny" aria-label="Toggle shiny sprite">
+                    <span class="sparkle">✨</span>
+                </button>
+                <button class="cry-btn" title="Play cry" aria-label="Play Pokémon cry">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                </button>
+                <img class="card-sprite" alt="" />
+            </div>
+
+            <div class="card-meta">
+                <div class="meta-item"><span class="meta-label">Height</span><span class="meta-value" data-meta="height"></span></div>
+                <div class="meta-item"><span class="meta-label">Weight</span><span class="meta-value" data-meta="weight"></span></div>
+                <div class="meta-item"><span class="meta-label">Abilities</span><span class="meta-value" data-meta="abilities"></span></div>
+            </div>
+
+            <p class="card-flavor" data-meta="flavor"></p>
+
+            <section class="card-stats">
+                <h3>Base Stats</h3>
+                <ul class="stats-list"></ul>
+                <div class="stats-total">
+                    <span>Total</span>
+                    <strong data-meta="total"></strong>
+                </div>
+            </section>
+
+            <section class="card-evolutions">
+                <h3>Evolution Chain</h3>
+                <div class="evo-chain"></div>
+            </section>
+
+            <nav class="card-nav">
+                <button class="btn btn-ghost" data-nav="prev" aria-label="Previous Pokémon">‹ Prev</button>
+                <button class="btn btn-ghost" data-nav="next" aria-label="Next Pokémon">Next ›</button>
+            </nav>
+        </article>
+    </template>
+
     <script src="pokemon.js"></script>
 </body>
 </html>
